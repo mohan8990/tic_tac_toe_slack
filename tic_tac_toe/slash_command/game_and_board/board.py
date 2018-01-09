@@ -11,7 +11,7 @@ from slash_command.constants import GAME_STATUS_DRAW
 
 class GameBoard(object):
 
-	def __init__(self, arr, player1Char, player2Char, isPlayer1CurrentTurn, numConsecutiveCoinsToWin, nullChar=DEFAULT_NULL_CHAR):
+	def __init__(self, arr, player1Char, player2Char, isPlayer1CurrentTurn, numConsecutiveCoinsToWin, nullChar=DEFAULT_NULL_CHAR, game=None):
 		self.arr = arr
 		self.player1Char = player1Char
 		self.player2Char = player2Char
@@ -21,6 +21,7 @@ class GameBoard(object):
 		self.wonByPlayer1 = False
 		self.wonByPlayer2 = False
 		self.isGameEnded = self._checkAndSetIfEnded()
+		self.game = game
 
 
 	def nextMove(self, game, isPlayer1, row, col):
@@ -93,7 +94,7 @@ class GameBoard(object):
 				str += "---+"
 			str += "---|"
 			toRet.append(str)
-		return "\n\n```{}```".format("\n".join(toRet))
+		return "\n\n{p1}'s coin: `{p1c}`\n{p2}'s coin: `{p2c}` ```{b}```".format(p1=self.game.player1.slackUser, p2=self.game.player2.slackUser, p1c=self.player1Char, p2c=self.player2Char, b="\n".join(toRet))
 
 	def serializeBoardConfig(self):
 		"""
@@ -188,7 +189,7 @@ class GameBoard(object):
 		:return: GameBoard instance.
 		"""
 		board = game.boards.last()
-		return cls(cls.deserializeBoardConfig(board.serializedBoard), game.player1Char, game.player2Char, board.currentTurn == game.player1, game.numConsecutiveCoinsToWin, game.nullChar)
+		return cls(cls.deserializeBoardConfig(board.serializedBoard), game.player1Char, game.player2Char, board.currentTurn == game.player1, game.numConsecutiveCoinsToWin, game.nullChar, game=game)
 
 
 	@classmethod
@@ -206,5 +207,5 @@ class GameBoard(object):
 
 		arr = [[game.nullChar for i in range(game.nCols)] for j in range(game.nRows)]
 
-		return cls(arr, game.player1Char, game.player2Char, False, game.numConsecutiveCoinsToWin, game.nullChar)
+		return cls(arr, game.player1Char, game.player2Char, False, game.numConsecutiveCoinsToWin, game.nullChar, game=game)
 
