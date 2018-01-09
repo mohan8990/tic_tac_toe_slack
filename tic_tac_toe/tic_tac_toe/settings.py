@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+SLACK_SECRET_TOKEN = 'POPULATE the secret here or in local_settings.py'
 
 # Application definition
 
@@ -145,3 +146,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# One way of keeping a secret
+try:
+	from local_settings import *
+except ImportError as e:
+	raise Exception("Please add a local_settings file with the SLACK_SECRET_TOKEN")
