@@ -13,7 +13,7 @@ class HelpCommandHandler(AbstractSlashCommand):
 					Show the current board config, its players and next turn. 
 				3) `/ttt invite @user`
 					Will invite the @user to play the game. Will fail if there is already an active game
-				4) `/ttt place row, col`
+				4) `/ttt place row col`
 					Will place your coin in row and col. Will succeed only when its your turn.
 				6) `/ttt invite @user 4 6`
 					Will invite @user to play and will start with a board of 4x6.
