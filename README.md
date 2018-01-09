@@ -21,7 +21,9 @@ Slack bot for playing tic-tac-toe
 
 \# Download pagekite
 - curl -s https://pagekite.net/pk/ |sudo bash
-- pagekite.py mohan.pagekite.me // mohan.pagekite.me could be anything, but make sure you give the same Response URL in slash command of your app. Follow the instructions in command line.
+- pagekite.py mohan.pagekite.me 
+
+\# mohan.pagekite.me could be anything, but make sure you give the same Response URL in slash command of your app. Follow the instructions in command line.
  
  \# Alternatively you can use ngrok, which doesn't require any signups.
 
