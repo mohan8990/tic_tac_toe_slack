@@ -34,7 +34,7 @@ class StatsCommandHandler(AbstractSlashCommand):
 			playerByWins = defaultdict(int)
 			for game in games.filter(status=GAME_STATUS_WON):
 				playerByWins[game.wonBy] += 1
-			firstSorted = sorted(playerByWins.iteritems(), key=lambda (k,v): (v,k))[0]
+			firstSorted = sorted(playerByWins.iteritems(), key=lambda (k,v): (v,k), reverse=True)[0]
 			mostWin = firstSorted[0]
 			mostWinCount = firstSorted[1]
 
