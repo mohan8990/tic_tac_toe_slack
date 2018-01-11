@@ -75,7 +75,7 @@ class Game(models.Model):
 
 class Board(models.Model):
 	"""
-	Mutable board, used to store all the moves. We can retrace by calculating diff between current and old move.
+	Immutable board, used to store all the moves. We can retrace by calculating diff between current and old move.
 	"""
 	serializedBoard = models.TextField()
 	createAt = models.DateTimeField(auto_now_add=True)
