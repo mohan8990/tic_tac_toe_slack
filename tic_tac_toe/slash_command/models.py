@@ -9,6 +9,12 @@ from slash_command.constants import DEFAULT_PLAYER1_CHAR
 from slash_command.constants import DEFAULT_PLAYER2_CHAR
 from slash_command.constants import DEFAULT_NULL_CHAR
 
+from slash_command.constants import GAME_STATUS_WON
+
+from slash_command.constants import GAME_STATUS_ABANDONED
+
+from slash_command.constants import GAME_STATUS_DRAW
+
 
 class GameUser(models.Model):
 	userName = models.TextField()
@@ -17,15 +23,11 @@ class GameUser(models.Model):
 
 	@property
 	def winCount(self):
-		pass
+		return self.wins.count()
 
 	@property
 	def lossCount(self):
-		pass
-
-	@property
-	def drawCount(self):
-		pass
+		return self.losses.count()
 
 	@property
 	def slackUser(self):
@@ -38,19 +40,19 @@ class GameChannel(models.Model):
 
 	@property
 	def numGames(self):
-		pass
+		return self.games.count()
 
 	@property
-	def numLoss(self):
-		pass
+	def numWinOrLoss(self):
+		return self.games.filter(status=GAME_STATUS_WON).count()
 
 	@property
-	def numWin(self):
-		pass
+	def numAbandoned(self):
+		return self.games.filter(status=GAME_STATUS_ABANDONED).count()
 
 	@property
 	def numDraw(self):
-		pass
+		return self.games.filter(status=GAME_STATUS_DRAW).count()
 
 class Game(models.Model):
 	status = models.CharField(max_length=1, db_index=True, choices=GAME_STATUS, default=GAME_STATUS_ACTIVE)
